@@ -12,6 +12,7 @@ const loanLength = document.getElementById("loanLength");
 //buttons
 const submitBtn = document.getElementById("submitBtn");
 const submitBtnFuture = document.getElementById("submitBtnFuture");
+const submitBtnPresent = document.getElementById("submitBtnPresent");
 
 //output element
 const outputElement = document.getElementById("output")
@@ -22,7 +23,9 @@ function init() {
         submitBtn.onclick = submitBtnClicked;
     } else if(submitBtnFuture != null){
         submitBtnFuture.onclick = submitBtnFutureClicked;
-    } 
+    } else if(submitBtnPresent != null){
+        submitBtnPresent.onclick = submitBtnPresentClicked;
+    }
 
 }
 
@@ -66,4 +69,24 @@ function submitBtnFutureClicked(){
 
     outputElement.innerHTML = `If you deposit $${principalInvestment.toFixed(2)} earning ${Number(interest.value).toFixed(2)}% interest that matures over ${timeInvested} 
     years, your ending balance will be $${futureValue.toFixed(2)} and you would have earned $${earnedInterest.toFixed(2)} in interest`;
+}
+
+function submitBtnPresentClicked(){
+    let annuityPayment = Number(principal.value);
+    let interestRatePerPeriod = Number(interest.value)/100;
+    let periods = Number(loanLength.value);
+    
+    let equation1;
+    let equation2;
+    let output;
+
+    equation1 = (1 - (1/(1+interestRatePerPeriod/12)**periods))
+
+
+    equation2 = equation1 * (1 / (interestRatePerPeriod/12))
+
+    output = annuityPayment * equation2
+
+    outputElement.innerHTML = `To fund an annuity that pays $${annuityPayment.toFixed(2)} monthly for ${periods/12} years 
+    and earns an expected ${interestRatePerPeriod*100}% interest, you would need to invest $${output.toFixed(2)} today` ;
 }
