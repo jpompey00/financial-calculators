@@ -1,6 +1,8 @@
 "use struct";
 window.onload = init;
 
+//TODO get the formatting consistent and clean up and style it a bit.
+
 //placeholder
 const placeholder = 0;
 
