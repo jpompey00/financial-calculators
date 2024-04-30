@@ -17,8 +17,6 @@ const outputElement = document.getElementById("outputTextBox");
 
 function init() {
 
-    //It checks which page it is on with these if blocks
-
     calculatePresentValueButton.onclick = onCalculatePresentValueButtonClicked;
 
     resetButton.onclick = onResetButtonClicked;
@@ -26,7 +24,7 @@ function init() {
 
 
 function onCalculatePresentValueButtonClicked() {
-    //variables used for equations and output
+    //variables used for equations
     let amountToInvest;
 
     //variables using the values from the document

@@ -50,9 +50,9 @@ function onCalculateInterestButtonClicked() {
         earnedInterest = (futureValue) - principalInvestment;
 
         outputElement.setAttribute("class", "form-control-plaintext")
-        
+
         //output is a bit different
-        outputElement.value = `If you deposit $${principalInvestment.toFixed(2)} earning ${(annualInterest*100).toFixed(2)}% interest that matures over ${yearsInvested} years, your ending balance will be $${futureValue.toFixed(2)} and you would have earned $${earnedInterest.toFixed(2)} in interest`;
+        outputElement.value = `If you deposit $${principalInvestment.toFixed(2)} earning ${(annualInterest * 100).toFixed(2)}% interest that matures over ${yearsInvested} years, your ending balance will be $${futureValue.toFixed(2)} and you would have earned $${earnedInterest.toFixed(2)} in interest`;
     }
 
 
