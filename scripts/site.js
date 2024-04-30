@@ -2,45 +2,47 @@
 window.onload = init;
 
 //TODO get the formatting consistent and clean up and style it a bit.
+//TODO add NaN checks
 
 //placeholder
 const placeholder = 0;
 
 //input fields
-const principal = document.getElementById("principal");
+const number1 = document.getElementById("number1");
 const interest = document.getElementById("interestRate");
-const loanLength = document.getElementById("loanLength");
+const loanLength = document.getElementById("time");
 
 //buttons
-const submitBtn = document.getElementById("submitBtn");
+const submitBtnMortgage = document.getElementById("submitBtnMortgage");
 const submitBtnFuture = document.getElementById("submitBtnFuture");
 const submitBtnPresent = document.getElementById("submitBtnPresent");
+const resetBtn = document.getElementById("resetBtn");
 
 //output element
 const outputElement = document.getElementById("output")
 
 function init() {
 
-    if(submitBtn != null){
-        submitBtn.onclick = submitBtnClicked;
+    if(submitBtnMortgage != null){
+        submitBtnMortgage.onclick = submitBtnMortgageClicked;
     } else if(submitBtnFuture != null){
         submitBtnFuture.onclick = submitBtnFutureClicked;
     } else if(submitBtnPresent != null){
         submitBtnPresent.onclick = submitBtnPresentClicked;
     }
-
+    resetBtn.onclick = resetBtnClicked;
 }
 
-function submitBtnClicked() {
+function submitBtnMortgageClicked() {
     //clean this up
     let monthlyPayment;
     let totalInterest;
     let equation1;
     let equation2;
-    let principalLoanAmount = Number(principal.value);
+    let principalLoanAmount = Number(number1.value);
     let interestRate = Number(interest.value) / 100;
     let monthlyInterestRate = interestRate / 12;
-    let loanLengthMonths = Number(loanLength.value);
+    let loanLengthMonths = Number(loanLength.value) * 12;
 
 
      equation1 = monthlyInterestRate * (1 + monthlyInterestRate) ** loanLengthMonths;
@@ -60,35 +62,43 @@ function submitBtnClicked() {
 function submitBtnFutureClicked(){
     let futureValue;
     let earnedInterest;
-    let principalInvestment = Number(principal.value);
+    let principalInvestment = Number(number1.value);
     let annualInterest = Number(interest.value) / 100;
     let dailyCompound = 365;
-    let timeInvested = Number(loanLength.value)/12;
+    let timeInvested = Number(loanLength.value);
 
     let equation1 = (1 + annualInterest/dailyCompound) ** (dailyCompound * timeInvested);
     futureValue = principalInvestment * equation1;
     earnedInterest = (futureValue) - principalInvestment;
 
+    //output is a bit different
     outputElement.innerHTML = `If you deposit $${principalInvestment.toFixed(2)} earning ${Number(interest.value).toFixed(2)}% interest that matures over ${timeInvested} 
     years, your ending balance will be $${futureValue.toFixed(2)} and you would have earned $${earnedInterest.toFixed(2)} in interest`;
 }
 
 function submitBtnPresentClicked(){
-    let annuityPayment = Number(principal.value);
+    let paymentPerMonth = Number(number1.value);
     let interestRatePerPeriod = Number(interest.value)/100;
     let periods = Number(loanLength.value);
+    
     
     let equation1;
     let equation2;
     let output;
 
-    equation1 = (1 - (1/(1+interestRatePerPeriod/12)**periods))
+    //periods were not lined up
+    equation1 = (1 - (1+(interestRatePerPeriod/12))**(-1*(periods*12)));
+    equation2 = equation1/(interestRatePerPeriod/12);
 
 
-    equation2 = equation1 * (1 / (interestRatePerPeriod/12))
-
-    output = annuityPayment * equation2
-
-    outputElement.innerHTML = `To fund an annuity that pays $${annuityPayment.toFixed(2)} monthly for ${periods/12} years 
+    output = paymentPerMonth * equation2;
+    outputElement.innerHTML = `To fund an annuity that pays $${paymentPerMonth} monthly for ${periods} years 
     and earns an expected ${interestRatePerPeriod*100}% interest, you would need to invest $${output.toFixed(2)} today` ;
+}
+
+function resetBtnClicked(){
+     number1.value = "";
+ interest.value = "";
+ loanLength.value = "";
+ outputElement.innerHTML = "";
 }

@@ -53,18 +53,41 @@
             </div>
 
             <div class="row">
-                <div class="col pt-3">
-                    <p>Principal: $ <input type = "text" id = "principal"/></p>
-                    <p>Interest Rate: <input type = "text" id = "interestRate"/> %</p>
-                    <p>Loan Length: <input type = "text" id = "loanLength"/> /Months</p>
-                    <input type = "button" value = "Submit" id = "submitBtn"/>
-                    <input type  = "button" value = "Reset" id = "resetBtn" class = "ms-3"/>
-                    <p id = "output" class = pt-3></p>
+                <div class=" col-auto">
+                    <label class = "col-form-label">Principal:</label>
                 </div>
-       
-
+                <div class="col-auto">
+                    <div class ="input-group">
+                        <span class = "input-group-text">$</span>
+                        <input class = "form-control form-control-sm" type = "text" id = "number1"/>
+                    </div>
                 </div>
             </div>
+
+
+            
+            
+            <div class="row">
+                <div class="col">
+                    <p>Interest Rate: <input type = "text" id = "interestRate"/> %</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col pt-3">
+                    <p>Loan Length: <input type = "text" id = "time"/> /Years</p>                </div>
+            </div>
+
+            <div class="row">
+                <div class="col pt-3">
+                    <input type = "button" value = "Submit" id = "submitBtnMortgage"/>
+                    <input type  = "button" value = "Reset" id = "resetBtn" class = "ms-3"/>
+
+                    
+                    <p id = "output" class = pt-3></p>
+                </div>
+            </div>
+
         </div>
 
     </main>
