@@ -55,8 +55,7 @@ function submitBtnMortgageClicked() {
 
   
 
-    outputElement.innerHTML = `A $${principalLoanAmount} loan at ${interestRate * 100}% interest for ${loanLengthMonths/12} years 
-    would have a $${monthlyPayment.toFixed(2)}/mo payment with a total interest of $${totalInterest.toFixed(2)} `;
+    outputElement.value = `A $${principalLoanAmount} loan at ${interestRate * 100}% interest for ${loanLengthMonths/12} years would have a $${monthlyPayment.toFixed(2)}/mo payment with a total interest of $${totalInterest.toFixed(2)} `;
 }
 
 function submitBtnFutureClicked(){
@@ -72,8 +71,7 @@ function submitBtnFutureClicked(){
     earnedInterest = (futureValue) - principalInvestment;
 
     //output is a bit different
-    outputElement.innerHTML = `If you deposit $${principalInvestment.toFixed(2)} earning ${Number(interest.value).toFixed(2)}% interest that matures over ${timeInvested} 
-    years, your ending balance will be $${futureValue.toFixed(2)} and you would have earned $${earnedInterest.toFixed(2)} in interest`;
+    outputElement.value = `If you deposit $${principalInvestment.toFixed(2)} earning ${Number(interest.value).toFixed(2)}% interest that matures over ${timeInvested} years, your ending balance will be $${futureValue.toFixed(2)} and you would have earned $${earnedInterest.toFixed(2)} in interest`;
 }
 
 function submitBtnPresentClicked(){
@@ -92,13 +90,12 @@ function submitBtnPresentClicked(){
 
 
     output = paymentPerMonth * equation2;
-    outputElement.innerHTML = `To fund an annuity that pays $${paymentPerMonth} monthly for ${periods} years 
-    and earns an expected ${interestRatePerPeriod*100}% interest, you would need to invest $${output.toFixed(2)} today` ;
+    outputElement.value = `To fund an annuity that pays $${paymentPerMonth} monthly for ${periods} years and earns an expected ${interestRatePerPeriod*100}% interest, you would need to invest $${output.toFixed(2)} today` ;
 }
 
 function resetBtnClicked(){
      number1.value = "";
  interest.value = "";
  loanLength.value = "";
- outputElement.innerHTML = "";
+ outputElement.value = "";
 }
