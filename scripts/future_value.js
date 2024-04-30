@@ -3,59 +3,56 @@ window.onload = init;
 
 
 //input fields
-const number1 = document.getElementById("number1");
-const interest = document.getElementById("interestRate");
-const loanLength = document.getElementById("time");
+const depositTextBox = document.getElementById("depositTextBox");
+const interestRateTextBox = document.getElementById("interestRateTextBox");
+const yearTextBox = document.getElementById("yearTextBox");
 
 //buttons
-const submitBtnMortgage = document.getElementById("submitBtnMortgage");
-const submitBtnFuture = document.getElementById("submitBtnFuture");
-const submitBtnPresent = document.getElementById("submitBtnPresent");
-const resetBtn = document.getElementById("resetBtn");
+const calculateInterestButton = document.getElementById("calculateInterestButton");
+const resetButton = document.getElementById("resetButton");
 
 //output element
-const outputElement = document.getElementById("output");
+const outputElement = document.getElementById("outputTextBox");
 
 
 function init() {
 
-    //It checks which page it is on with these if blocks
 
-    submitBtnFuture.onclick = submitBtnFutureClicked;
+    calculateInterestButton.onclick = onCalculateInterestButtonClicked;
 
-    resetBtn.onclick = resetBtnClicked;
+    resetButton.onclick = onResetButtonClicked;
 }
 
 
 
 
-function submitBtnFutureClicked() {
+function onCalculateInterestButtonClicked() {
     //variables used with equations
     let futureValue;
     let earnedInterest;
-    let equation1;
 
     //variables using the values from the document
-    let principalInvestment = Number(number1.value);
-    let annualInterest = Number(interest.value) / 100;
+    let principalInvestment = Number(depositTextBox.value);
+    let annualInterest = Number(interestRateTextBox.value) / 100;
     let dailyCompound = 365;
-    let timeInvested = Number(loanLength.value);
+    let yearsInvested = Number(yearTextBox.value);
 
     //checks to make sure they inputted a number
-    if (Number.isNaN(principalInvestment) || Number.isNaN(annualInterest) || Number.isNaN(timeInvested)) {
+    if (Number.isNaN(principalInvestment) || Number.isNaN(annualInterest) || Number.isNaN(yearsInvested)) {
 
         //puts an error message where the output would go in red read-only text
         outputElement.value = "Please make sure you enter numbers in all fields";
         outputElement.setAttribute("class", "form-control-plaintext text-danger");
 
     } else {
-        equation1 = (1 + annualInterest / dailyCompound) ** (dailyCompound * timeInvested);
+        let equation1 = (1 + annualInterest / dailyCompound) ** (dailyCompound * yearsInvested);
         futureValue = principalInvestment * equation1;
         earnedInterest = (futureValue) - principalInvestment;
 
         outputElement.setAttribute("class", "form-control-plaintext")
+        
         //output is a bit different
-        outputElement.value = `If you deposit $${principalInvestment.toFixed(2)} earning ${Number(interest.value).toFixed(2)}% interest that matures over ${timeInvested} years, your ending balance will be $${futureValue.toFixed(2)} and you would have earned $${earnedInterest.toFixed(2)} in interest`;
+        outputElement.value = `If you deposit $${principalInvestment.toFixed(2)} earning ${(annualInterest*100).toFixed(2)}% interest that matures over ${yearsInvested} years, your ending balance will be $${futureValue.toFixed(2)} and you would have earned $${earnedInterest.toFixed(2)} in interest`;
     }
 
 
@@ -64,9 +61,9 @@ function submitBtnFutureClicked() {
 
 
 //clears all fields
-function resetBtnClicked() {
-    number1.value = "";
-    interest.value = "";
-    loanLength.value = "";
+function onResetButtonClicked() {
+    depositTextBox.value = "";
+    interestRateTextBox.value = "";
+    yearTextBox.value = "";
     outputElement.value = "";
 }
